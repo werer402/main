@@ -1,88 +1,32 @@
 import requests
-import json
 
 class BitrixManager:
     def __init__(self):
-        # Твой актуальный вебхук из присланных файлов
         self.webhook_url = "https://b24-tmb6tt.bitrix24.by/rest/1/s0z8fofh0w0x73ng/"
 
-    def _call(self, method, params):
-        """Внутренний метод для отправки запросов"""
-        url = f"{self.webhook_url}{method}.json"
-        try:
-            response = requests.post(url, json=params)
-            response.raise_for_status()
-            return response.json()
-        except Exception as e:
-            print(f"Ошибка Bitrix API ({method}): {e}")
+    def create_lead(self, user_data, message_text, assigned_id):
+        """
+        Принимает кортеж user_data, который Виталик достал из базы.
+        (name, last_name, company, internal_id)
+        """
+        if not user_data:
             return None
 
-    def create_lead(self, title, message, assigned_id=1):
-        """
-        Создает лид. 
-        assigned_id — это ID первого спеца, которого нашел ИИ.
-        """
+        name, last_name, company, u_id = user_data
+        
         params = {
             "fields": {
-                "TITLE": title,
-                "COMMENTS": message,
-                "STATUS_ID": "NEW",
+                "TITLE": f"Запрос: {company}",
+                "NAME": name,
+                "LAST_NAME": last_name,
+                "COMMENTS": f"Сообщение: {message_text}\n\nВнутренний ID: {u_id}",
                 "ASSIGNED_BY_ID": assigned_id,
-                "SOURCE_ID": "AI_ROUTER" # Пометка, что лид обработан роботом
+                "SOURCE_ID": "TELEGRAM"
             }
         }
-        result = self._call("crm.lead.add", params)
-        if result and "result" in result:
-            print(f"Лид создан! ID: {result['result']}")
-            return result['result']
-        return None
+        return requests.post(f"{self.webhook_url}crm.lead.add.json", json=params).json()
 
-    def send_notification(self, user_id, text):
-        """Отправляет персональное сообщение специалисту в чат"""
-        params = {
-            "DIALOG_ID": user_id,
-            "MESSAGE": f"**AI-Уведомление**\n\n{text}"
-        }
-        result = self._call("im.message.add", params)
-        if result:
-            print(f" Сообщение отправлено пользователю ID {user_id}")
-        return result
-
-    def route_to_specialists(self, ai_result):
-        """
-        Метод-связка. Принимает результат от нашего SmartDispatcher.
-        ai_result — это словарь вида {'msg': '...', 'to': [{'id': '51', 'pos': '...'}]}
-        """
-        message_text = ai_result['msg']
-        targets = ai_result['to']
-
-        if not targets:
-            return
-
-        # 1. Создаем общий лид на первого в списке (основной ответственный)
-        main_id = targets[0]['id']
-        lead_id = self.create_lead(f"Запрос: {message_text[:30]}...", message_text, main_id)
-
-        # 2. Рассылаем всем спецам (из разных сфер) уведомления
-        for target in targets:
-            notification = (
-                f"Вам назначен новый запрос из сферы: *{target['pos']}*\n"
-                f"Текст клиента: {message_text}\n"
-                f"Ссылка на лид: https://b24-tmb6tt.bitrix24.by/crm/lead/details/{lead_id}/"
-            )
-            self.send_notification(target['id'], notification)
-
-# --- ТЕСТОВЫЙ ЗАПУСК ---
-if __name__ == "__main__":
-    bx = BitrixManager()
-    
-    # Имитация того, что вернул твой ИИ-роутер
-    mock_ai_data = {
-        "msg": "Нужна консультация по ламинации ПП и расчет цены",
-        "to": [
-            {"id": "51", "pos": "Инженер-технолог"},
-            {"id": "13", "pos": "Ведущий специалист отдела сбыта"}
-        ]
-    }
-    
-    bx.route_to_specialists(mock_ai_data)
+    def send_notification(self, dialog_id, text):
+        """Отправка уведомления сотруднику в чат"""
+        params = {"DIALOG_ID": dialog_id, "MESSAGE": f"🤖 AI: {text}"}
+        return requests.post(f"{self.webhook_url}im.message.add.json", json=params).json()
