@@ -14,7 +14,7 @@ class BitrixManager:
             response.raise_for_status()
             return response.json()
         except Exception as e:
-            print(f"❌ Ошибка Bitrix API ({method}): {e}")
+            print(f"Ошибка Bitrix API ({method}): {e}")
             return None
 
     def create_lead(self, title, message, assigned_id=1):
@@ -33,7 +33,7 @@ class BitrixManager:
         }
         result = self._call("crm.lead.add", params)
         if result and "result" in result:
-            print(f"✅ Лид создан! ID: {result['result']}")
+            print(f"Лид создан! ID: {result['result']}")
             return result['result']
         return None
 
@@ -41,11 +41,11 @@ class BitrixManager:
         """Отправляет персональное сообщение специалисту в чат"""
         params = {
             "DIALOG_ID": user_id,
-            "MESSAGE": f"🤖 **AI-Уведомление**\n\n{text}"
+            "MESSAGE": f"**AI-Уведомление**\n\n{text}"
         }
         result = self._call("im.message.add", params)
         if result:
-            print(f"📧 Сообщение отправлено пользователю ID {user_id}")
+            print(f" Сообщение отправлено пользователю ID {user_id}")
         return result
 
     def route_to_specialists(self, ai_result):
