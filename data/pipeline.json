@@ -1,0 +1,167 @@
+{
+  "lead_statuses": [
+    {
+      "STATUS_ID": "NEW",
+      "NAME": "НОВЫЙ ЛИД",
+      "SORT": "10",
+      "SEMANTIC": "process",
+      "COLOR": "#67cef9"
+    },
+    {
+      "STATUS_ID": "3",
+      "NAME": "Установление контакта с ЛПР, ЛВР",
+      "SORT": "20",
+      "SEMANTIC": "process",
+      "COLOR": "#f36509"
+    },
+    {
+      "STATUS_ID": "4",
+      "NAME": "Выявление потребности",
+      "SORT": "30",
+      "SEMANTIC": "process",
+      "COLOR": "#fff893"
+    },
+    {
+      "STATUS_ID": "5",
+      "NAME": "Коммерческое предложение",
+      "SORT": "40",
+      "SEMANTIC": "process",
+      "COLOR": "#f3e27c"
+    },
+    {
+      "STATUS_ID": "CONVERTED",
+      "NAME": "РАЗМЕЩЁН ЗАКАЗ",
+      "SORT": "110",
+      "SEMANTIC": "success",
+      "COLOR": "#37B44A"
+    },
+    {
+      "STATUS_ID": "JUNK",
+      "NAME": "Не используют этикетку",
+      "SORT": "120",
+      "SEMANTIC": "failure",
+      "COLOR": "#FF0000"
+    },
+    {
+      "STATUS_ID": "15",
+      "NAME": "Работают с посредником",
+      "SORT": "130",
+      "SEMANTIC": "failure",
+      "COLOR": "#81CA9D"
+    },
+    {
+      "STATUS_ID": "16",
+      "NAME": "Не прошли по ценам",
+      "SORT": "140",
+      "SEMANTIC": "failure",
+      "COLOR": "#F16522"
+    },
+    {
+      "STATUS_ID": "17",
+      "NAME": "Не прошли по ТЗ",
+      "SORT": "150",
+      "SEMANTIC": "failure",
+      "COLOR": "#ED008C"
+    },
+    {
+      "STATUS_ID": "18",
+      "NAME": "Не прошли по срокам изготовления",
+      "SORT": "160",
+      "SEMANTIC": "failure",
+      "COLOR": "#F7941D"
+    },
+    {
+      "STATUS_ID": "19",
+      "NAME": "Не прошли по логистике",
+      "SORT": "170",
+      "SEMANTIC": "failure",
+      "COLOR": "#F16C4D"
+    },
+    {
+      "STATUS_ID": "20",
+      "NAME": "Банкроты / ненадёжные",
+      "SORT": "180",
+      "SEMANTIC": "failure",
+      "COLOR": "#FF0000"
+    },
+    {
+      "STATUS_ID": "22",
+      "NAME": "Другое",
+      "SORT": "190",
+      "SEMANTIC": "failure",
+      "COLOR": "#FF5752"
+    }
+  ],
+  "deal_pipelines": [
+    {
+      "CATEGORY_ID": "0",
+      "NAME": "Основная воронка (самоклеящаяся этикетка)",
+      "stages": [
+        {"STAGE_ID": "NEW", "NAME": "Новый запрос", "SORT": "10", "SEMANTIC": "process", "COLOR": "#39a8ef"},
+        {"STAGE_ID": "3", "NAME": "Сбор информации", "SORT": "20", "SEMANTIC": "process", "COLOR": "#2fc6f6"},
+        {"STAGE_ID": "4", "NAME": "КП отправлено", "SORT": "30", "SEMANTIC": "process", "COLOR": "#2fc6f6"},
+        {"STAGE_ID": "5", "NAME": "Обратная связь получена", "SORT": "40", "SEMANTIC": "process", "COLOR": "#2fc6f6"},
+        {"STAGE_ID": "PREPARATION", "NAME": "Тестирование", "SORT": "50", "SEMANTIC": "process", "COLOR": "#2fc6f6"},
+        {"STAGE_ID": "WON", "NAME": "Заказ размещён в 1С (Успешная сделка)", "SORT": "60", "SEMANTIC": "success", "COLOR": "#7bd500"},
+        {"STAGE_ID": "LOSE", "NAME": "Технологическое ограничение", "SORT": "70", "SEMANTIC": "failure", "COLOR": "#ff5752"},
+        {"STAGE_ID": "APOLOGY", "NAME": "Не прошли по цене", "SORT": "80", "SEMANTIC": "failure", "COLOR": "#ff5752"},
+        {"STAGE_ID": "6", "NAME": "Не прошли по срокам производства", "SORT": "90", "SEMANTIC": "failure", "COLOR": "#FF5752"},
+        {"STAGE_ID": "7", "NAME": "Не прошли по срокам доставки", "SORT": "100", "SEMANTIC": "failure", "COLOR": "#FF5752"},
+        {"STAGE_ID": "8", "NAME": "Не прошли тестирование", "SORT": "110", "SEMANTIC": "failure", "COLOR": "#FF5752"},
+        {"STAGE_ID": "9", "NAME": "Другое", "SORT": "120", "SEMANTIC": "failure", "COLOR": "#FF5752"}
+      ]
+    },
+    {
+      "CATEGORY_ID": "11",
+      "NAME": "Повторная проработка",
+      "stages": [
+        {"STAGE_ID": "C11:NEW", "NAME": "Новая сделка", "SORT": "10", "SEMANTIC": "process", "COLOR": "#39A8EF"},
+        {"STAGE_ID": "C11:PREPARATION", "NAME": "В работе", "SORT": "20", "SEMANTIC": "process", "COLOR": "#2FC6F6"},
+        {"STAGE_ID": "C11:WON", "NAME": "Запрос получен", "SORT": "30", "SEMANTIC": "success", "COLOR": "#7BD500"},
+        {"STAGE_ID": "C11:LOSE", "NAME": "Отказ", "SORT": "40", "SEMANTIC": "failure", "COLOR": "#FF5752"}
+      ]
+    },
+    {
+      "CATEGORY_ID": "13",
+      "NAME": "Продажа готовой этикетки",
+      "stages": [
+        {"STAGE_ID": "C13:NEW", "NAME": "Новая", "SORT": "10", "SEMANTIC": "process", "COLOR": "#39A8EF"},
+        {"STAGE_ID": "C13:WON", "NAME": "Сделка успешна", "SORT": "20", "SEMANTIC": "success", "COLOR": "#7BD500"},
+        {"STAGE_ID": "C13:LOSE", "NAME": "Сделка провалена", "SORT": "30", "SEMANTIC": "failure", "COLOR": "#FF5752"},
+        {"STAGE_ID": "C13:APOLOGY", "NAME": "Анализ причины провала", "SORT": "40", "SEMANTIC": "failure", "COLOR": "#FF5752"}
+      ]
+    }
+  ],
+  "lead_sources": [
+    {"SOURCE_ID": "CALL", "NAME": "Исходящий звонок"},
+    {"SOURCE_ID": "1", "NAME": "Входящий звонок"},
+    {"SOURCE_ID": "EMAIL", "NAME": "Электронная почта"},
+    {"SOURCE_ID": "WEB", "NAME": "Веб-сайт"},
+    {"SOURCE_ID": "ADVERTISING", "NAME": "Реклама"},
+    {"SOURCE_ID": "PARTNER", "NAME": "Существующий клиент"},
+    {"SOURCE_ID": "RECOMMENDATION", "NAME": "По рекомендации"},
+    {"SOURCE_ID": "TRADE_SHOW", "NAME": "Выставка"},
+    {"SOURCE_ID": "WEBFORM", "NAME": "Социальные сети"},
+    {"SOURCE_ID": "CALLBACK", "NAME": "Обратный звонок"},
+    {"SOURCE_ID": "RC_GENERATOR", "NAME": "Онлайн-чат"},
+    {"SOURCE_ID": "STORE", "NAME": "Интернет-магазин"},
+    {"SOURCE_ID": "2", "NAME": "Рассылка"},
+    {"SOURCE_ID": "3", "NAME": "Список участников выставки"},
+    {"SOURCE_ID": "OTHER", "NAME": "Другое"}
+  ],
+  "rejection_reasons": [
+    {"id": 1, "status": "JUNK", "name": "Не используют этикетку", "applies_to": "lead"},
+    {"id": 2, "status": "15", "name": "Работают с посредником", "applies_to": "lead"},
+    {"id": 3, "status": "16", "name": "Не прошли по ценам", "applies_to": "lead"},
+    {"id": 4, "status": "17", "name": "Не прошли по ТЗ", "applies_to": "lead"},
+    {"id": 5, "status": "18", "name": "Не прошли по срокам изготовления", "applies_to": "lead"},
+    {"id": 6, "status": "19", "name": "Не прошли по логистике", "applies_to": "lead"},
+    {"id": 7, "status": "20", "name": "Банкроты / ненадёжные", "applies_to": "lead"},
+    {"id": 8, "status": "22", "name": "Другое", "applies_to": "lead"},
+    {"id": 9, "status": "LOSE", "name": "Технологическое ограничение", "applies_to": "deal"},
+    {"id": 10, "status": "APOLOGY", "name": "Не прошли по цене", "applies_to": "deal"},
+    {"id": 11, "status": "6", "name": "Не прошли по срокам производства", "applies_to": "deal"},
+    {"id": 12, "status": "7", "name": "Не прошли по срокам доставки", "applies_to": "deal"},
+    {"id": 13, "status": "8", "name": "Не прошли тестирование", "applies_to": "deal"}
+  ]
+}
