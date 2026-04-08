@@ -1,4 +1,5 @@
-.env           # Твои API-ключи (OpenAI и т.д.)
-__pycache__/   # Кэш Python
-venv/          # Виртуальное окружение
-.DS_Store      # Системный мусор (если вы на Mac)
+.env
+my_venv/
+__pycache__/
+*.pyc
+.DS_Store
